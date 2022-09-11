@@ -1,0 +1,15 @@
+{
+  "name": "fragments",
+  "private":"true",
+  "version": "0.0.1",
+  "description": "Back-end to my fragments API",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roboticbeing/fragments.git"
+  },
+  "author": "Jessica Krishtul",
+  "license": "UNLICENSED"
+}
