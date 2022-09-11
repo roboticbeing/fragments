@@ -1,6 +1,6 @@
 {
   "name": "fragments",
-  "private":"true",
+  "private": "true",
   "version": "0.0.1",
   "description": "Back-end to my fragments API",
   "scripts": {
@@ -11,5 +11,8 @@
     "url": "git+https://github.com/roboticbeing/fragments.git"
   },
   "author": "Jessica Krishtul",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "prettier": "2.7.1"
+  }
 }
