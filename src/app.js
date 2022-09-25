@@ -6,6 +6,8 @@ const helmet = require('helmet');
 const compression = require('compression');
 const passport = require('passport');
 const authorization = require('./authorization');
+const { createErrorResponse } = require('./response');
+
 
 // version and author from our package.json file
 //commented out because of unused variables
@@ -41,12 +43,9 @@ app.use('/', require('./routes'));
 
 // Add 404 middleware to handle any requests for resources that can't be found
 app.use((req, res) => {
-  res.status(404).json({
-    status: 'error',
-    error: {
-      message: 'not found',
-      code: 404,
-    },
+  const errorResponse = createErrorResponse(404, 'not found');
+  res.status(errorResponse.error.code).json({
+    errorResponse
   });
 });
 
@@ -57,19 +56,16 @@ app.use((err, req, res, next) => {
   // 500 server error and message.
   const status = err.status || 500;
   const message = err.message || 'unable to process request';
+  const errorResponse = createErrorResponse(status, message);
 
   // If this is a server error, log something so we can see what's going on.
   if (status > 499) {
     logger.error({ err }, `Error processing request`);
   }
 
-  res.status(status).json({
-    status: 'error',
-    error: {
-      message,
-      code: status,
-    },
-  });
+  res.status(status).json(
+    errorResponse
+  );
 });
 
 // Export our `app` so we can access it in server.js
