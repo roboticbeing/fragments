@@ -1,6 +1,6 @@
-const FragmentDB = require('../../src/model/data/memory/index')
+const FragmentDB = require('../../src/model/data/index')
 
-describe('data/memory/index', () => {
+describe('data/index', () => {
 
     test('readFragment(ownerId, id) returns writeFragment(fragment) data', async () => {
         const fragment = { ownerId: 'a', id: 'b', size: 256, type: 'text/plain', created: 'e', updated: 'f' };
@@ -52,7 +52,7 @@ describe('data/memory/index', () => {
         expect(results).toEqual([]);
       });
 
-      test('del() removes value put() into db', async () => {
+      test('DeleteFragment() should return undefined', async () => {
         await FragmentDB.deleteFragment('a', 'b');
         expect(await FragmentDB.readFragment('a', 'b')).toBe(undefined);
         expect(await FragmentDB.readFragmentData('a', 'b')).toBe(undefined);
