@@ -191,7 +191,7 @@ describe('Fragment class', () => {
       await wait();
       await fragment.save();
       const fragment2 = await Fragment.byId(ownerId, fragment.id);
-      expect(fragment2.updated.getMilliseconds()).toBeGreaterThan(modified1.getMilliseconds());
+      expect(Date.parse(fragment2.updated)).toBeGreaterThan(Date.parse(modified1));
     });
 
     test('setData() updates the updated date/time of a fragment', async () => {
@@ -204,7 +204,7 @@ describe('Fragment class', () => {
       await fragment.setData(data);
       await wait();
       const fragment2 = await Fragment.byId(ownerId, fragment.id);
-      expect(fragment2.updated.getMilliseconds()).toBeGreaterThan(modified1.getMilliseconds());
+      expect(Date.parse(fragment2.updated)).toBeGreaterThan(Date.parse(modified1));
     });
 
     test("a fragment is added to the list of a user's fragments", async () => {
