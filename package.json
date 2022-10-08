@@ -9,9 +9,11 @@
     "coverage": "jest -c jest.config.js --runInBand --coverage",
     "lint": "eslint --config .eslintrc.js src/** tests/**",
     "start": "node src/index.js",
-    "dev": "LOG_LEVEL=debug nodemon ./src/index.js --watch src",
+    "dev": "NODE_ENV=basic-auth LOG_LEVEL=debug nodemon ./src/index.js --watch src",
+    "aws": "NODE_ENV=cognito LOG_LEVEL=debug nodemon ./src/index.js --watch src",
     "debug": "LOG_LEVEL=debug nodemon --inspect=0.0.0.0:9229 ./src/index.js --watch src"
   },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/roboticbeing/fragments.git"

@@ -1,7 +1,7 @@
 // src/index.js
 
 // Read environment variables from an .env file (if present)
-require('dotenv').config();
+require('dotenv').config({ path: `env.${process.env.NODE_ENV}` })
 
 // We want to log any crash cases so we can debug later from logs.
 const logger = require('./logger');
