@@ -12,7 +12,7 @@ const { Fragment } = require('../../model/fragment');
         const fragment = new Fragment({ ownerId: req.user, type: req.get('content-type')});
         fragment.save();
         fragment.setData(data);
-        res.setHeader('Location', 'localhost:8080/v1'+req.url)
+        res.setHeader('Location', process.env.API_URL + '/v1' + req.url)
         const successResponse = createSuccessResponse(fragment);
         res.status(201).json(
         successResponse
