@@ -21,7 +21,7 @@ describe('POST /v1/fragments', () => {
     expect(res.body.id).toMatch(
         /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/
       );
-    expect(res.body.ownerId).toBe('user1@email.com');
+    expect(res.body.ownerId).toBe('11d4c22e42c8f61feaba154683dea407b101cfd90987dda9e342843263ca420a');
     expect(Date.parse(res.body.created)).not.toBeNaN();
     expect(Date.parse(res.body.updated)).not.toBeNaN();
     expect(res.body.type).toBe('text/plain');
