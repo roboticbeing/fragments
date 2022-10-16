@@ -11,8 +11,15 @@ The start script runs our server normally; dev runs it via nodemon, which watche
 # starting up an EC2 instance
 1. Go to AWS Learner Lab, start it, then click on AWS Console.
 2. Click EC2
-3. ssh -i ~/.ssh/dps955-key-pair.pem ec2-user@ec2-54-144-63-236.compute-1.amazonaws.com
+3. Run ```ssh -i ~/.ssh/dps955-key-pair.pem ec2-user@[id]```
 4. Remember to stop the lab
 
 Optional: update source code
-1. 
+1. Run ```npm pack``` in fragments repo
+2. Run ```scp -i dps955-key-pair.pem fragments-0.0.1.tgz ec2-user@[id]:```
+3. Connect to the EC2 instance and run ```tar -xvzf fragments-0.0.1.tgz```
+
+# docker
+1. Build an image -> AWS: ```sudo service docker start``` then ```docker build -t fragments:latest .```
+2. Run container ```docker run --rm --name fragments --env-file env.jest -e LOG_LEVEL=debug -p 8080:8080 -d fragments:latest```
+3. Run ```docker kill [id]```
