@@ -11,7 +11,7 @@ The start script runs our server normally; dev runs it via nodemon, which watche
 # starting up an EC2 instance
 1. Go to AWS Learner Lab, start it, then click on AWS Console.
 2. Click EC2
-3. Run ```ssh -i ~/.ssh/dps955-key-pair.pem ec2-user@[id]```
+3. Run ```ssh -i ~/.ssh/dps955-key-pair.pem ec2-user@[Public IPv4 DNS]```
 4. Remember to stop the lab
 
 Optional: update source code
