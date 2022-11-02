@@ -2,7 +2,7 @@
 
 # Parent/Base image to use as a starting point for our own image
 # Use a larger base image for installing dependencies
-FROM node:latest@sha256:9006c62d58649d5db18bbe00c2c73a2cfa AS dependencies 
+FROM node:latest AS dependencies 
 
 RUN apt-get update && apt-get install -y --no-install-recommends dumb-init
 
