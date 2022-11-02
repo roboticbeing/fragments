@@ -26,4 +26,5 @@ Optional: update source code
 
 Optional: run container with terminal -> ```docker run --rm --init --it [tagname] bash``` 
 
-4. Run ```docker kill [id]```
+4. To go inside the image: ```docker exec --it [id] bash```
+5. Run ```docker kill [id]```
