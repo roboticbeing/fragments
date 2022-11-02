@@ -45,10 +45,10 @@ USER node
 WORKDIR /app
 
 # Copy cached dependencies from previous stage so we don't have to download
-COPY --chown=node:node --from=dependencies /app /app
+COPY --chown=node:node --from=dependencies . /app
 
 # Copy src to /app/src/
-COPY --chown=node:node --from=dependencies ./app/src ./app/src
+COPY --chown=node:node --from=dependencies ./src/ ./src/
 
 # Copy our HTPASSWD file
 COPY --chown=node:node --from=dependencies ./app/tests/.htpasswd ./app/tests/.htpasswd
