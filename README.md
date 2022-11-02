@@ -23,4 +23,8 @@ Optional: update source code
 1. Build an image with multiple tags: ```docker build -t roboticbeing/fragments:latest -t roboticbeing/fragments:lab-6 -t roboticbeing/fragments:90f9154 .``` 
 2. Push all tags: ```docker push --all-tags roboticbeing/fragments```
 3. Run container ```docker run --rm --name fragments --env-file env.jest -e LOG_LEVEL=debug -p 8080:8080 -d fragments:latest```
-4. Run ```docker kill [id]```
+
+Optional: run container with terminal -> ```docker run --rm --init --it [tagname] bash``` 
+
+4. To go inside the image: ```docker exec --it [id] bash```
+5. Run ```docker kill [id]```
