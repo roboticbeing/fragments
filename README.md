@@ -21,6 +21,6 @@ Optional: update source code
 
 # docker
 1. Build an image with multiple tags: ```docker build -t username/fragments:latest -t username/fragments:lab-6 -t username/fragments:90f9154 .``` 
-2. Push all tags: ```docker push --all-tags user/fragments```
+2. Push all tags: ```docker push --all-tags roboticbeing/fragments```
 3. Run container ```docker run --rm --name fragments --env-file env.jest -e LOG_LEVEL=debug -p 8080:8080 -d fragments:latest```
 4. Run ```docker kill [id]```
