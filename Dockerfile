@@ -48,10 +48,10 @@ WORKDIR /app
 COPY --chown=node:node --from=dependencies . /app
 
 # Copy src to /app/src/
-COPY --chown=node:node --from=dependencies ./app/src/ ./app/src/
+COPY --chown=node:node --from=dependencies ./src /app/src
 
 # Copy our HTPASSWD file
-COPY --chown=node:node --from=dependencies ./app/tests/.htpasswd ./app/tests/.htpasswd
+COPY --chown=node:node --from=dependencies ./tests/.htpasswd /app/tests/.htpasswd
 
 # Start the container by running our server
 # Properly handle events to safely terminate a Node.js application
