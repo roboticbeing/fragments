@@ -22,13 +22,13 @@ ENV NODE_ENV=production \
     NPM_CONFIG_COLOR=false
 
 # Use /app as our working directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy the package.json and package-lock.json files into /app
-COPY package*.json /usr/src/app/
+COPY package*.json ./
 
 # Install only production node dependencies defined in package-lock.json
-RUN npm install
+RUN npm ci --only=production
 
 #######################################################################
 
@@ -42,13 +42,13 @@ COPY --from=dependencies /usr/bin/dumb-init /usr/bin/dumb-init
 # Run container with least privileged user
 USER node
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy cached dependencies from previous stage so we don't have to download
-COPY --chown=node:node --from=dependencies /usr/src/app/node_modules /usr/src/app/node_modules
+COPY --chown=node:node --from=dependencies /app /app
 
 # Copy all our source code
-COPY --chown=node:node --from=dependencies . /usr/src/app
+COPY --chown=node:node --from=dependencies . .
 
 # Start the container by running our server
 # Properly handle events to safely terminate a Node.js application
