@@ -51,7 +51,7 @@ COPY --chown=node:node --from=dependencies . /app
 COPY --chown=node:node --from=dependencies ./src/ ./src/
 
 # Copy our HTPASSWD file
-COPY --chown=node:node --from=dependencies ./app/tests/.htpasswd ./app/tests/.htpasswd
+COPY --chown=node:node --from=dependencies ./tests/.htpasswd ./tests/.htpasswd
 
 # Start the container by running our server
 # Properly handle events to safely terminate a Node.js application
