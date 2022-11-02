@@ -4,8 +4,7 @@
 # Use a larger base image for installing dependencies
 FROM node:latest AS dependencies 
 
-RUN apt-get update && apt-get install -y --no-install-recommends \ 
-    dumb-init curl
+RUN apt-get update && apt-get install -y --no-install-recommends dumb-init
 
 # Image Metadata
 LABEL maintainer="Jessica Krishtul <jkrishtul@myseneca.ca>" \
@@ -49,7 +48,6 @@ WORKDIR /app
 
 # Copy cached dependencies from previous stage so we don't have to download (node modules)
 COPY --chown=node:node --from=dependencies /app /app
-#COPY --from=dependencies /app /app
 
 # Copy all our source code
 COPY --chown=node:node . .
@@ -59,7 +57,7 @@ COPY --chown=node:node . .
 CMD ["dumb-init", "npm", "start"]
 
 # We run our service on port 8080
-EXPOSE 8080
+EXPOSE ${PORT}
 
 HEALTHCHECK --interval=15s --timeout=30s --start-period=5s --retries=3 \
-    CMD curl --fail localhost:8080 || exit 1
+    CMD curl --fail localhost:${PORT} || exit 1
