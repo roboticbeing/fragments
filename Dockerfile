@@ -48,7 +48,7 @@ WORKDIR /app
 COPY --chown=node:node --from=dependencies . /app
 
 # Copy src to /app/src/
-COPY --chown=node:node --from=dependencies ./src/ ./src/
+COPY --chown=node:node --from=dependencies ./app/src/ ./app/src/
 
 # Copy our HTPASSWD file
 COPY --chown=node:node --from=dependencies ./tests/.htpasswd ./tests/.htpasswd
