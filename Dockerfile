@@ -52,7 +52,7 @@ COPY --chown=node:node --from=dependencies . .
 
 # Start the container by running our server
 # Properly handle events to safely terminate a Node.js application
-CMD ["dumb-init", "npm", "start"]
+CMD ["dumb-init", "node", "./src/index.js"]
 
 # We run our service on port 8080
 EXPOSE 8080
