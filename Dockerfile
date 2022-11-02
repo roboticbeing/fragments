@@ -25,12 +25,10 @@ ENV NODE_ENV=production \
 WORKDIR /app
 
 # Copy the package.json and package-lock.json files into /app
-COPY package*.json ./
+# COPY package*.json ./
 
 # Install only production node dependencies defined in package-lock.json
 RUN npm ci --only=production
-
-RUN pwd
 
 #######################################################################
 
@@ -55,8 +53,6 @@ COPY --chown=node:node --from=dependencies . .
 # Start the container by running our server
 # Properly handle events to safely terminate a Node.js application
 CMD ["dumb-init", "ls"]
-
-RUN pwd
 
 # We run our service on port 8080
 EXPOSE 8080
