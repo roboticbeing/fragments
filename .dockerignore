@@ -10,3 +10,4 @@ env*
 .gitignore
 .prettier*
 jest*
+*.md

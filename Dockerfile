@@ -4,7 +4,8 @@
 # Use a larger base image for installing dependencies
 FROM node:latest AS dependencies 
 
-# RUN apt-get update && apt-get install -y --no-install-recommends dumb-init
+RUN apt-get update && apt-get install -y --no-install-recommends \ 
+    dumb-init curl
 
 # Image Metadata
 LABEL maintainer="Jessica Krishtul <jkrishtul@myseneca.ca>" \
@@ -35,27 +36,30 @@ RUN npm ci --only=production
 # Stage 1: use dependencies to build server
 
 # Use officially supported and deterministic image tags
-# FROM node:16.17.0-bullseye-slim@sha256:59812c19504546fc66b0b26722bf0754ee48b74f9abc5ed9c3f251fc45d86099
+FROM node:16.17.0-bullseye-slim@sha256:59812c19504546fc66b0b26722bf0754ee48b74f9abc5ed9c3f251fc45d86099 AS build
 
-# COPY --from=dependencies /usr/bin/dumb-init /usr/bin/dumb-init
+RUN apt-get update && apt-get install curl -y
 
-# # Run container with least privileged user
-# USER node
+COPY --from=dependencies /usr/bin/dumb-init /usr/bin/dumb-init
 
-# WORKDIR /app
+# Run container with least privileged user
+USER node
 
-# # Copy cached dependencies from previous stage so we don't have to download
-# COPY --chown=node:node --from=dependencies /app /app
+WORKDIR /app
 
-# # Copy all our source code
-# COPY --chown=node:node --from=dependencies . .
+# Copy cached dependencies from previous stage so we don't have to download (node modules)
+COPY --chown=node:node --from=dependencies /app /app
+#COPY --from=dependencies /app /app
 
-# # Start the container by running our server
-# # Properly handle events to safely terminate a Node.js application
-# CMD ["dumb-init", "ls"]
+# Copy all our source code
+COPY --chown=node:node . .
 
-# # We run our service on port 8080
-# EXPOSE 8080
+# Start the container by running our server
+# Properly handle events to safely terminate a Node.js application
+CMD ["dumb-init", "npm", "start"]
 
-# HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-#     CMD wget --fail localhost:8080 || exit 1
+# We run our service on port 8080
+EXPOSE 8080
+
+HEALTHCHECK --interval=15s --timeout=30s --start-period=5s --retries=3 \
+    CMD curl --fail localhost:8080 || exit 1
