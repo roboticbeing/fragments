@@ -47,11 +47,8 @@ WORKDIR /app
 # Copy cached dependencies from previous stage so we don't have to download
 COPY --chown=node:node --from=dependencies . /app
 
-# Copy src to /app/src/
-COPY --chown=node:node --from=dependencies ./src /app/src
-
-# Copy our HTPASSWD file
-COPY --chown=node:node --from=dependencies ./tests/.htpasswd /app/tests/.htpasswd
+# Copy all our source code
+COPY --chown=node:node --from=dependencies . .
 
 # Start the container by running our server
 # Properly handle events to safely terminate a Node.js application

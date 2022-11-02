@@ -4,7 +4,7 @@ coverage/
 node_modules/
 tests/
 !tests/.htpasswd
-.env
+env*
 .eslintrc.js
 .git/
 .gitignore
