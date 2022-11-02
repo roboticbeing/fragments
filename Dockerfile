@@ -2,7 +2,7 @@
 
 # Parent/Base image to use as a starting point for our own image
 # Use a larger base image for installing dependencies
-FROM node:latest as dependencies 
+FROM node:latest AS dependencies 
 
 RUN apt-get update && apt-get install -y --no-install-recommends dumb-init
 
@@ -28,7 +28,7 @@ WORKDIR /usr/src/app
 COPY package*.json /usr/src/app/
 
 # Install only production node dependencies defined in package-lock.json
-RUN npm ci --production
+RUN npm ci --only=production
 
 #######################################################################
 
