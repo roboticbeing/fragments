@@ -28,8 +28,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install only production node dependencies defined in package-lock.json
-RUN npm ci --only=production \
-    && echo "stage2"
+RUN npm ci --only=production
 
 #######################################################################
 
