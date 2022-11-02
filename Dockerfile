@@ -2,7 +2,7 @@
 
 # Parent/Base image to use as a starting point for our own image
 # Use a larger base image for installing dependencies
-FROM node:latest AS dependencies 
+FROM node:latest@sha256:9006c62d58649d5db18bbe00c2c73a2cfa AS dependencies 
 
 RUN apt-get update && apt-get install -y --no-install-recommends dumb-init
 
@@ -35,27 +35,27 @@ RUN npm ci --only=production
 # Stage 1: use dependencies to build server
 
 # Use officially supported and deterministic image tags
-# FROM node:16.17.0-bullseye-slim@sha256:59812c19504546fc66b0b26722bf0754ee48b74f9abc5ed9c3f251fc45d86099
+FROM node:16.17.0-bullseye-slim@sha256:59812c19504546fc66b0b26722bf0754ee48b74f9abc5ed9c3f251fc45d86099
 
-# COPY --from=dependencies /usr/bin/dumb-init /usr/bin/dumb-init
+COPY --from=dependencies /usr/bin/dumb-init /usr/bin/dumb-init
 
-# # Run container with least privileged user
-# USER node
+# Run container with least privileged user
+USER node
 
-# WORKDIR /app
+WORKDIR /app
 
-# # Copy cached dependencies from previous stage so we don't have to download
-# COPY --chown=node:node --from=dependencies /app /app
+# Copy cached dependencies from previous stage so we don't have to download
+COPY --chown=node:node --from=dependencies /app /app
 
-# # Copy all our source code
-# COPY --chown=node:node --from=dependencies . .
+# Copy all our source code
+COPY --chown=node:node --from=dependencies . .
 
-# # Start the container by running our server
-# # Properly handle events to safely terminate a Node.js application
-# CMD ["dumb-init", "ls"]
+# Start the container by running our server
+# Properly handle events to safely terminate a Node.js application
+CMD ["dumb-init", "ls"]
 
-# # We run our service on port 8080
-# EXPOSE 8080
+# We run our service on port 8080
+EXPOSE 8080
 
-# HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-#     CMD wget --fail localhost:8080 || exit 1
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+    CMD wget --fail localhost:8080 || exit 1
