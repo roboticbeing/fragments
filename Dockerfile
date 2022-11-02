@@ -45,7 +45,7 @@ USER node
 WORKDIR /app
 
 # Copy cached dependencies from previous stage so we don't have to download
-COPY --chown=node:node --from=dependencies /app/ ./
+COPY --chown=node:node --from=dependencies . ./app
 
 # Copy all our source code
 COPY --chown=node:node --from=dependencies . .
