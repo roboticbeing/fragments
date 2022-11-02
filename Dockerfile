@@ -52,9 +52,7 @@ COPY --chown=node:node --from=dependencies . .
 
 # Start the container by running our server
 # Properly handle events to safely terminate a Node.js application
-CMD ["ls"]
-CMD ["cd app"]
-CMD ["ls"]
+CMD ["/app", "ls"]
 
 # We run our service on port 8080
 EXPOSE 8080
