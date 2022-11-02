@@ -50,10 +50,9 @@ COPY --chown=node:node --from=dependencies /app /app
 # Copy all our source code
 COPY --chown=node:node --from=dependencies . .
 
-RUN ls
 # Start the container by running our server
 # Properly handle events to safely terminate a Node.js application
-#CMD ["dumb-init", ""]
+CMD ["dumb-init", "cd", "app", "ls"]
 
 # We run our service on port 8080
 EXPOSE 8080
