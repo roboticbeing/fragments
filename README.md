@@ -20,6 +20,7 @@ Optional: update source code
 3. Connect to the EC2 instance and run ```tar -xvzf fragments-0.0.1.tgz```
 
 # docker
-1. Build an image -> AWS: ```sudo service docker start``` then ```docker build -t fragments:latest .```
-2. Run container ```docker run --rm --name fragments --env-file env.jest -e LOG_LEVEL=debug -p 8080:8080 -d fragments:latest```
-3. Run ```docker kill [id]```
+1. Build an image with multiple tags: ```docker build -t username/fragments:latest -t username/fragments:lab-6 -t username/fragments:90f9154 .``` 
+2. Push all tags: ```docker push --all-tags user/fragments```
+3. Run container ```docker run --rm --name fragments --env-file env.jest -e LOG_LEVEL=debug -p 8080:8080 -d fragments:latest```
+4. Run ```docker kill [id]```
