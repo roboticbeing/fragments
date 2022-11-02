@@ -25,7 +25,7 @@ ENV NODE_ENV=production \
 WORKDIR /usr/src/app
 
 # Copy the package.json and package-lock.json files into /app
-COPY package*.json /usr/src/app
+COPY package*.json /usr/src/app/
 
 # Install only production node dependencies defined in package-lock.json
 RUN npm ci --production
