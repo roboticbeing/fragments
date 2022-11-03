@@ -1,7 +1,7 @@
 {
   "name": "fragments",
   "private": "true",
-  "version": "0.0.1",
+  "version": "0.7.0",
   "description": "Back-end to my fragments API",
   "scripts": {
     "test:watch": "jest -c jest.config.js --runInBand --watch --",
@@ -13,7 +13,6 @@
     "aws": "NODE_ENV=cognito LOG_LEVEL=debug nodemon ./src/index.js --watch src",
     "debug": "LOG_LEVEL=debug nodemon --inspect=0.0.0.0:9229 ./src/index.js --watch src"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/roboticbeing/fragments.git"
