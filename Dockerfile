@@ -2,9 +2,11 @@
 
 # Parent/Base image to use as a starting point for our own image
 # Use a larger base image for installing dependencies
-FROM node:latest AS dependencies 
+FROM node:latest@sha256:9006c62d58649d5db18bbe00c2c73a2cfaf56d63fa56200b141203736123f9a4 AS dependencies 
 
-RUN apt-get update && apt-get install -y --no-install-recommends dumb-init
+RUN apt-get update && apt-get install -y --no-install-recommends dumb-init=1.2.* \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Image Metadata
 LABEL maintainer="Jessica Krishtul <jkrishtul@myseneca.ca>" \
@@ -37,7 +39,9 @@ RUN npm ci --only=production
 # Use officially supported and deterministic image tags
 FROM node:16.17.0-bullseye-slim@sha256:59812c19504546fc66b0b26722bf0754ee48b74f9abc5ed9c3f251fc45d86099 AS build
 
-RUN apt-get update && apt-get install curl -y
+RUN apt-get update && apt-get install --no-install-recommends curl=7.* -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY --from=dependencies /usr/bin/dumb-init /usr/bin/dumb-init
 
