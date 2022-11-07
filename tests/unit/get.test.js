@@ -39,12 +39,16 @@ describe('GET /v1/fragments', () => {
                 updated: expect.stringMatching(/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/),
                 type: 'text/plain',
                 size: 5
-            };
+              };
     const res = await request(app).get('/v1/fragments?expand=1').auth('user1@email.com', 'password1');  
-    expect(res.body.fragments).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining(o)
-      ])
-    );
+    expect(res.body).toHaveProperty('status', 'ok');
+    expect(res.body).toHaveProperty('fragments', [o]);
+    expect(res.statusCode).toBe(200);
+
+    // expect(res.body.fragments).toEqual(
+    //   expect.arrayContaining([
+    //     expect.objectContaining(o)
+    //   ])
+    // );
   });
 });
