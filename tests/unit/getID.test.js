@@ -76,4 +76,23 @@ describe('GET /v1/fragments/:id', () => {
     expect(res.statusCode).toBe(200);
     expect(res.headers['content-type']).toBe('application/json');
   });
+
+  // convert markdown to html
+  test('convert text/markdown fragment type to html', async () => {
+    const data = Buffer.from('# hi');
+    const post = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').set('Content-Type', 'text/markdown').send(data);
+    const res = await request(app).get('/v1/fragments/' + post.body.id + '.html').auth('user1@email.com', 'password1');
+    expect(res.statusCode).toBe(200);
+    expect(res.headers['content-type']).toBe('text/html; charset=utf-8');
+    expect(res.text).toBe('<h1>hi</h1>\n');
+  });
+
+  // conversion fail
+  test('convert json to html - conversion fail', async () => {
+    const data = {a: 1, b: 2};
+    const post = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').set('Content-Type', 'application/json').send(data);
+    const res = await request(app).get('/v1/fragments/' + post.body.id + '.html').auth('user1@email.com', 'password1');
+    expect(res.statusCode).toBe(415);
+  });
+
 });
