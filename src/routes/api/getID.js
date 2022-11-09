@@ -12,7 +12,6 @@ const { Fragment } = require('../../model/fragment');
     try {
         const fragment = await Fragment.byId(req.user, req.params.id);
         const data = await fragment.getData();
-        // TODO: Update this in future to accept more media types
         const successResponse = data;
         res.setHeader('content-type', fragment.type);
         res.status(200).send(
