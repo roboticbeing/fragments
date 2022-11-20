@@ -11,7 +11,8 @@
     "start": "node src/index.js",
     "dev": "NODE_ENV=basic-auth LOG_LEVEL=debug nodemon ./src/index.js --watch src",
     "aws": "NODE_ENV=cognito LOG_LEVEL=debug nodemon ./src/index.js --watch src",
-    "debug": "LOG_LEVEL=debug nodemon --inspect=0.0.0.0:9229 ./src/index.js --watch src"
+    "debug": "LOG_LEVEL=debug nodemon --inspect=0.0.0.0:9229 ./src/index.js --watch src",
+    "test:integration": "hurl --test --glob \"tests/integration/**/*.hurl\""
   },
   "repository": {
     "type": "git",
