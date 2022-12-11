@@ -11,11 +11,11 @@ const { Fragment } = require('../../model/fragment');
     try {
         await Fragment.delete(req.user, req.params.id);
         res.status(200).send(
-            createSuccessResponse
+            createSuccessResponse()
         );
     }
     catch(err) {
-        const errorResponse = createErrorResponse(404, 'id not found');
+        const errorResponse = createErrorResponse(404, err);
         res.status(errorResponse.error.code).json({
             errorResponse
       });
