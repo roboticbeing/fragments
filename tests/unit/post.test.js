@@ -18,14 +18,14 @@ describe('POST /v1/fragments', () => {
     const res = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').set('Content-Type', 'text/plain').send(data);
     expect(res.statusCode).toBe(201);
     expect(res.body.status).toBe('ok');
-    expect(res.body.id).toMatch(
+    expect(res.body.fragment.id).toMatch(
         /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/
       );
-    expect(res.body.ownerId).toBe('11d4c22e42c8f61feaba154683dea407b101cfd90987dda9e342843263ca420a');
-    expect(Date.parse(res.body.created)).not.toBeNaN();
-    expect(Date.parse(res.body.updated)).not.toBeNaN();
-    expect(res.body.type).toBe('text/plain');
-    expect(res.body.size).toBe(1);
+    expect(res.body.fragment.ownerId).toBe('11d4c22e42c8f61feaba154683dea407b101cfd90987dda9e342843263ca420a');
+    expect(Date.parse(res.body.fragment.created)).not.toBeNaN();
+    expect(Date.parse(res.body.fragment.updated)).not.toBeNaN();
+    expect(res.body.fragment.type).toBe('text/plain');
+    expect(res.body.fragment.size).toBe(1);
   });
 
   // text/markdown
@@ -34,14 +34,14 @@ describe('POST /v1/fragments', () => {
     const res = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').set('Content-Type', 'text/markdown').send(data);
     expect(res.statusCode).toBe(201);
     expect(res.body.status).toBe('ok');
-    expect(res.body.id).toMatch(
+    expect(res.body.fragment.id).toMatch(
         /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/
       );
-    expect(res.body.ownerId).toBe('11d4c22e42c8f61feaba154683dea407b101cfd90987dda9e342843263ca420a');
-    expect(Date.parse(res.body.created)).not.toBeNaN();
-    expect(Date.parse(res.body.updated)).not.toBeNaN();
-    expect(res.body.type).toBe('text/markdown');
-    expect(res.body.size).toBe(7);
+    expect(res.body.fragment.ownerId).toBe('11d4c22e42c8f61feaba154683dea407b101cfd90987dda9e342843263ca420a');
+    expect(Date.parse(res.body.fragment.created)).not.toBeNaN();
+    expect(Date.parse(res.body.fragment.updated)).not.toBeNaN();
+    expect(res.body.fragment.type).toBe('text/markdown');
+    expect(res.body.fragment.size).toBe(7);
   });
 
   // text/html
@@ -50,14 +50,14 @@ describe('POST /v1/fragments', () => {
     const res = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').set('Content-Type', 'text/html').send(data);
     expect(res.statusCode).toBe(201);
     expect(res.body.status).toBe('ok');
-    expect(res.body.id).toMatch(
+    expect(res.body.fragment.id).toMatch(
         /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/
       );
-    expect(res.body.ownerId).toBe('11d4c22e42c8f61feaba154683dea407b101cfd90987dda9e342843263ca420a');
-    expect(Date.parse(res.body.created)).not.toBeNaN();
-    expect(Date.parse(res.body.updated)).not.toBeNaN();
-    expect(res.body.type).toBe('text/html');
-    expect(res.body.size).toBe(16);
+    expect(res.body.fragment.ownerId).toBe('11d4c22e42c8f61feaba154683dea407b101cfd90987dda9e342843263ca420a');
+    expect(Date.parse(res.body.fragment.created)).not.toBeNaN();
+    expect(Date.parse(res.body.fragment.updated)).not.toBeNaN();
+    expect(res.body.fragment.type).toBe('text/html');
+    expect(res.body.fragment.size).toBe(16);
   });
 
   // application/json
@@ -66,14 +66,14 @@ describe('POST /v1/fragments', () => {
     const res = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').set('Content-Type', 'application/json').send(data);
     expect(res.statusCode).toBe(201);
     expect(res.body.status).toBe('ok');
-    expect(res.body.id).toMatch(
+    expect(res.body.fragment.id).toMatch(
         /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/
       );
-    expect(res.body.ownerId).toBe('11d4c22e42c8f61feaba154683dea407b101cfd90987dda9e342843263ca420a');
-    expect(Date.parse(res.body.created)).not.toBeNaN();
-    expect(Date.parse(res.body.updated)).not.toBeNaN();
-    expect(res.body.type).toBe('application/json');
-    expect(res.body.size).toBe(13);
+    expect(res.body.fragment.ownerId).toBe('11d4c22e42c8f61feaba154683dea407b101cfd90987dda9e342843263ca420a');
+    expect(Date.parse(res.body.fragment.created)).not.toBeNaN();
+    expect(Date.parse(res.body.fragment.updated)).not.toBeNaN();
+    expect(res.body.fragment.type).toBe('application/json');
+    expect(res.body.fragment.size).toBe(13);
   });
 
   // responses include a Location header with a URL to GET the fragment
@@ -81,7 +81,7 @@ describe('POST /v1/fragments', () => {
     const data = "a";
     const res = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').set('Content-Type', 'text/plain').send(data);
     expect(res.header).toHaveProperty('location');
-    expect(res.headers['location']).toBe('localhost:8080/v1/fragments');
+    expect(res.headers['location']).toBe('localhost:8080/v1/fragments/' + res.body.fragment.id);
   });
 
   // trying to create a fragment with an unsupported type errors as expected
