@@ -16,7 +16,7 @@ describe('GET /v1/fragments/:id', () => {
   test('authenticated users get fragment data', async () => {
     const data = "a";
     const post = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').set('Content-Type', 'text/plain').send(data);
-    const res = await request(app).get('/v1/fragments/' + post.body.id).auth('user1@email.com', 'password1');
+    const res = await request(app).get('/v1/fragments/' + post.body.fragment.id).auth('user1@email.com', 'password1');
     expect(res.statusCode).toBe(200);
     expect(res.text).toBe(data);
   });
@@ -38,7 +38,7 @@ describe('GET /v1/fragments/:id', () => {
       size: 1
     };
     const post = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').set('Content-Type', 'text/plain').send(data);
-    const res = await request(app).get('/v1/fragments/' + post.body.id + '/info').auth('user1@email.com', 'password1');
+    const res = await request(app).get('/v1/fragments/' + post.body.fragment.id + '/info').auth('user1@email.com', 'password1');
     expect(res.body).toHaveProperty('status', 'ok');
     expect(res.body).toHaveProperty('fragment', o);
     expect(res.statusCode).toBe(200);
@@ -54,7 +54,7 @@ describe('GET /v1/fragments/:id', () => {
   test('text/markdown fragment type', async () => {
     const data = Buffer.from('# hello');
     const post = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').set('Content-Type', 'text/markdown').send(data);
-    const res = await request(app).get('/v1/fragments/' + post.body.id).auth('user1@email.com', 'password1');
+    const res = await request(app).get('/v1/fragments/' + post.body.fragment.id).auth('user1@email.com', 'password1');
     expect(res.statusCode).toBe(200);
     expect(res.headers['content-type']).toBe('text/markdown');
   });
@@ -63,7 +63,7 @@ describe('GET /v1/fragments/:id', () => {
   test('html fragment type', async () => {
     const data = Buffer.from('<p>hello</p>');
     const post = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').set('Content-Type', 'text/html').send(data);
-    const res = await request(app).get('/v1/fragments/' + post.body.id).auth('user1@email.com', 'password1');
+    const res = await request(app).get('/v1/fragments/' + post.body.fragment.id).auth('user1@email.com', 'password1');
     expect(res.statusCode).toBe(200);
     expect(res.headers['content-type']).toBe('text/html');
   });
@@ -72,7 +72,7 @@ describe('GET /v1/fragments/:id', () => {
   test('json fragment type', async () => {
     const data = {a: 1, b:2};
     const post = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').set('Content-Type', 'application/json').send(data);
-    const res = await request(app).get('/v1/fragments/' + post.body.id).auth('user1@email.com', 'password1');
+    const res = await request(app).get('/v1/fragments/' + post.body.fragment.id).auth('user1@email.com', 'password1');
     expect(res.statusCode).toBe(200);
     expect(res.headers['content-type']).toBe('application/json');
   });
@@ -81,7 +81,7 @@ describe('GET /v1/fragments/:id', () => {
   test('convert text/markdown fragment type to html', async () => {
     const data = Buffer.from('# hi');
     const post = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').set('Content-Type', 'text/markdown').send(data);
-    const res = await request(app).get('/v1/fragments/' + post.body.id + '.html').auth('user1@email.com', 'password1');
+    const res = await request(app).get('/v1/fragments/' + post.body.fragment.id + '.html').auth('user1@email.com', 'password1');
     expect(res.statusCode).toBe(200);
     expect(res.headers['content-type']).toBe('text/html; charset=utf-8');
     expect(res.text).toBe('<h1>hi</h1>\n');
@@ -91,7 +91,7 @@ describe('GET /v1/fragments/:id', () => {
   test('convert json to html - conversion fail', async () => {
     const data = {a: 1, b: 2};
     const post = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').set('Content-Type', 'application/json').send(data);
-    const res = await request(app).get('/v1/fragments/' + post.body.id + '.html').auth('user1@email.com', 'password1');
+    const res = await request(app).get('/v1/fragments/' + post.body.fragment.id + '.html').auth('user1@email.com', 'password1');
     expect(res.statusCode).toBe(415);
   });
 
