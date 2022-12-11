@@ -49,6 +49,10 @@
           {
             "name": "API_URL",
             "value": "http://ec2co-ecsel-22mfr15f29jd-1494618860.us-east-1.elb.amazonaws.com:8080/"
+          },
+          {
+            "name": "AWS_S3_BUCKET_NAME",
+            "value": "jkrishtul-fragments"
           }
         ],
         "resourceRequirements": null,
