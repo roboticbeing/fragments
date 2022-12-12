@@ -28,7 +28,7 @@ services:
       - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME:jkrishtul-fragments}
       - AWS_DYNAMODB_TABLE_NAME=${AWS_DYNAMODB_TABLE_NAME:-fragments}
       # Set database
-      - DB=Memory
+      - DB=AWS
     # Ports to publish
     ports:
       - '8080:8080'
