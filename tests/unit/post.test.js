@@ -76,6 +76,22 @@ describe('POST /v1/fragments', () => {
     expect(res.body.fragment.size).toBe(13);
   });
 
+  // image/png
+  test('authenticated users can create an image/png fragment', async () => {
+    const res = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').set('Content-Type', 'image/png').attach('vegetables', 'fragments/tests/vegetables.png');
+    expect(res.statusCode).toBe(201);
+    expect(res.body.status).toBe('ok');
+    expect(res.body.fragment.id).toMatch(
+        /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/
+      );
+    expect(res.body.fragment.ownerId).toBe('11d4c22e42c8f61feaba154683dea407b101cfd90987dda9e342843263ca420a');
+    expect(Date.parse(res.body.fragment.created)).not.toBeNaN();
+    expect(Date.parse(res.body.fragment.updated)).not.toBeNaN();
+    expect(res.body.fragment.type).toBe('image/png');
+    expect(res.body.fragment.size).toBe(13);
+  });
+
+
   // responses include a Location header with a URL to GET the fragment
   test('response should include a Location header with correct URL', async () => {
     const data = "a";

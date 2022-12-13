@@ -24,11 +24,14 @@
  
  // Define our first route, which will be: GET /v1/fragments
  router.get('/fragments', require('./get'));
- router.get('/fragments/:id.:ext', require('./convertHTML.js'));
+ router.get('/fragments/:id.html', require('./convertHTML.js'));
+ router.get('/fragments/:id.txt', require('./convertTXT.js'));
+ router.get('/fragments/:id.:ext', require('./convertIMG.js'));
  router.get('/fragments/:id', require('./getID'));
  router.get('/fragments/:id/info', require('./getIDInfo'));
  // Use a raw body parser for POST, which will give a `Buffer` Object or `{}` at `req.body`
  router.post('/fragments', rawBody(), require('./post'));
+ router.put('/fragments/:id', rawBody(), require('./put'));
  router.delete('/fragments/:id', require('./delete'));
  
  module.exports = router;

@@ -100,8 +100,6 @@ class Fragment {
    * @returns Promise
    */
   save() {
-    // console.log(new Date().getSeconds());
-    // console.log(isoDate.getSeconds());
     this.updated = new Date();
     return writeFragment(this);
   }
